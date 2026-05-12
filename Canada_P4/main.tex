@@ -1,0 +1,85 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{indentfirst}
+\DeclareMathOperator{\lcm}{lcm}
+\usepackage[a4paper, total={6in, 10in}]{geometry}
+
+\title{Mathcamp 2026 Qualifying Quiz Problem 4 Solution}
+\author{Applicant ID: 25107}
+\date{}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section*{Part a)}
+
+    Let the two sequential sets be $A$ and $B$, where $A$ is the union of the arithmetic sequences $A_1, A_2, \dots $ and $B$ is the union of the union of the arithmetic sequences $B_1, B_2, \dots $. Then, 
+    \begin{align*}
+        A\cap B &= \left(\bigcup_i A_i\right) \cap \left(\bigcup_j B_j\right) \\
+        &= \bigcup_j \left(\left(\bigcup_i A_i\right)\cap B_i\right)\\
+        &= \bigcup_{i, j} (A_i\cap B_j)
+    \end{align*}
+
+    Let two arithmetic sequences be $S_1 = \{an + b\ |\ n\in \mathbb{Z}\}$ and $S_2 = \{cn + d\ |\ n\in \mathbb{Z}\}$. We will show that if they have an intersection, then it will be an arithmetic sequence. Let a common element of both sequences $x$. Then, we claim that $S_1\cap S_2 = \{\lcm(|a|, |c|)n + x\ |\ n \in \mathbb{Z}\}.$ Notice that two elements in $S_1$ must differ by a multiple of $a$, and two elements in $S_2$ must differ by a multiple of $c$. Therefore, if $y - x$ is both a multiple of $a$ and $c$, then $y\in S_1\cap S_2$, so set of all possible $y$ (i.e. the intersection) is precisely described by the above.
+
+    So, the intersection of two arithmetic sequences is always either an arithmetic sequence or the empty set, meaning $A\cap B$ is simply the union of arithmetic sequences, so it is sequential and we are done. Inductively we can see that a finite intersection of sequential sets is sequential.\\
+
+    However, an infinite intersection of sequential sets need not be sequential. Let $S_k = \{kn\ |\ n\in \mathbb{Z}\},$ which is sequential for $k > 0$. Then,
+    $$\bigcap_{k = 1}^\infty S_k = \{0\},$$ which is clearly not sequential.
+
+    \section*{Part b)}
+
+    Let $S'$ denote the complement of $S$, that is, $S' = \mathbb{Z}\backslash S$. Notice that if $A_1, A_2, \dots, A_n$ are sequential, then by part a), $\bigcap_{i = 1}^n A_i$ is sequential, so $(\bigcap_{i = 1}^n A_i)' = \bigcup_{i = 1}^n A_i'$ is con-sequential. Therefore, if we show that the intersection of the complements of arithemtic sequences and the complements of integers are sequential, then it is equivalent to the problem statement.
+
+    First, we show the complement of an arithmetic sequence is sequential. Let the sequence be $\{an + b\ |\ n\in \mathbb{Z}\}$, where $0 \leq b < a.$ Then, we can write its complement as $$\bigcup_{k = 0,\ k\neq b}^{a - 1}\{an + k\ |\ n \in \mathbb{Z}\},$$
+    which is a union of arithmetic sequences and so is sequential.
+
+    Next, we show the complement of an integer $a$ is sequential. We can write the complement as $$\bigcup_{k = 1}^\infty \{2kn + a - k\ |\ n\in \mathbb{Z}\},$$
+    where the $k$-th set in the union contributes the integers $a - k$ and $a + k$. This is again a union of arithmetic sequences and so is sequential.
+
+    Therefore, as the complements of arithmetic sequences and integers are both sequential, the intersection of the complements of finitely many arithmetic sequences and finitely many integers will be sequential. Hence, the union of finitely many arithmetic sequences and finitely many integers will be con-sequential.\\
+
+    However, not all con-sequential sets are the union of a finite union of arithmetic sequences (FUAS) and finitely many integers.  \\
+
+    \textbf{Lemma:} A set $S$ is a FUAS if and only if there exists an integer $M$ such that $S$ is is a union of residue classes modulo $M$.
+
+    \textit{Proof:} For the forwards direction, suppose $S$ is a union of residue classes modulo $M$. Then, there exists a set of residues $R\subset \{0, 1, \dots, M - 1\}$ $$S = \bigcup_{r\in R} \{Mn + r\ |\ n\in \mathbb{Z}\}.$$
+    Each set is an arithmetic sequence, so $S$ is a FUAS.
+    
+    For the backwards direction, let $S$ be a FUAS with the sequences $\{a_in + b_i\ |\ n\in \mathbb{Z}\}$, and let $M$ be the lowest common multiple of all $a_i$. Each arithmetic sequence is then a union of some residue classes modulo $M$: if $M = a_ik_i$, then $$\{a_in + b_i\ |\ n\in \mathbb{Z}\} = \bigcup_{r = 0}^{k_i - 1} \{Mn + b_i + a_ir\ |\ n\in \mathbb{Z}\}.$$
+    Therefore, $S$ will be a union of residue classes modulo $M$. \\
+    
+    With this lemma, we can see that a FUAS has a rational density (i.e. the proportion of all integers that it contains) in the integers. So, a union of a FUAS and finitely many integers will have (asymptotically) rational density.
+    
+    We will construct a con-sequential set with irrational density, meaning it cannot be the union of a FUAS and finitely many integers. Let $S$ be the set of all squarefree integers. Then, $$S' = \bigcup_{p \text{ prime}} \{p^2n\ |\ n\in \mathbb{Z}\},$$
+    which we see is sequential, meaning $S$ is consequential. Now consider the density of $S$ in the integers, i.e. the proportion of all integers that it contains. As exactly $\frac{1}{p^2}$ of all integers are multiples of $p^2$, we see that the density of $S$ is
+    \begin{align*}
+    \prod_{p\text{ prime}} \left(1 - \frac{1}{p^2}\right) &= \prod_{p\text{ prime}} \frac{p^2 - 1}{p^2} \\
+    &= \left({\prod_{p\text{ prime}}\frac{p^2}{p^2 - 1}}\right)^{-1} \\
+    &= \left({\prod_{p\text{ prime}} \frac{1}{1 - p^{-2}}}\right)^{-1} \\
+    &= \left(\prod_{p\text{ prime}} \left(1 + \frac{1}{p^2} + \frac{1}{p^4} + \cdots\right)\right)^{-1} \\
+    &= \left(\sum_{k = 1}^\infty \frac{1}{k^2}\right)^{-1} = \frac{6}{\pi^2}.
+    \end{align*}
+    The final line is the well-known result of the Basel problem. We see that the density of $S$, a con-sequential set, is irrational, meaning that $S'$, cannot be written as a union of finitely many arithmetic sequences and finitely many integers.
+    
+    \section*{Part c)}
+
+    As seen in the previous part, the complement of an arithmetic sequence is sequential, so the intersection of the complements of finite arithmetic sequences will be sequential. Therefore, a finite union of arithmetic sequences (FUAS) will be con-sequential as well as (by definition) sequential. \\
+
+    However, not all sets that are both sequential and con-sequential are FUAS. From the previous part, note that set $S$ is a FUAS if and only if there exists an integer $M$ such that $S$ is is a union of residue classes modulo $M$, and we can say that $S$ is \textit{periodic} modulo $M$. We will construct disjoint sets $A$ and $B$ such that $A\cup B = \mathbb{Z}$ and both are infinite unions of arithmetic sequences (hence they are sequential and con-sequential), and to ensure this, we will show that there is no integer $M$ such that $A$ or $B$ are a periodic modulo $M$. The construction of $A$ and $B$ is as follows: \\
+
+    Let $A_0 = B_0 = \emptyset$, and $C_0 = \mathbb{Z}\backslash (A_0\cup B_0) = \mathbb{Z}$. Note that these are all FUAS. List all integers using the sequence $z_1, z_2, z_3, \dots$ where $$z_k = (-1)^k \left\lfloor \frac{k}{2}\right\rfloor$$ (so the sequence is $0, 1, -1, 2, -2, \dots$). We will proceed with steps $1, 2, 3, \dots$. At the $k$-th step, we will use the disjoint FUAS $A_{k - 1}$ and $B_{k - 1}$ to create disjoint FUAS $A_k$ and $B_k$ which are aperiodic modulo $1, 2, \dots, k$, and then set $C_k = \mathbb{Z}\backslash (A_k\cup B_k).$
+    
+    As $A_{k - 1}\cup B_{k - 1}$ is a FUAS, it is con-sequential, so $C_{k - 1}$ is also a FUAS, meaning it contains an arithmetic sequence $S = \{an + b\ |\ n\in\mathbb{Z}\}$. Choose two elements $u$ and $v$ such that $v = u + ak$, so $u\equiv v\pmod k$. Then, consider the two arithmetic sequences $$S_1 = \{3ak\cdot n + u\ |\ n\in\mathbb{Z}\}\text{ and } S_2 = \{3ak\cdot n + v\ |\ n\in\mathbb{Z}\}$$
+    which are disjoint subsets of $S$ such that they do not contain all elements in $S$ (for example, $u + 2ak$ is not included). Set $A_k' = A_{k - 1}\cup S_1$, $B_k = B_{k - 1}\cup S_2$, and $C'_k = C_{k - 1}\backslash (S_1\cup S_2) = \mathbb{Z}\backslash (A'_k\cup B_k)$. \\
+
+    Next, to ensure all integers eventually are in $A$ or $B$, we will ensure that at step $k, z_k$ will be included in either $A_k$ or $B_k$. If $z_k\notin C'_k,$ then it has included, so simply set $A_k = A'_k, C_k = C_k'$. Otherwise, as $C'_k$ is again a FUAS, it contains an arithmetic sequence $S = \{an + z_k\ |\ n\in\mathbb{Z}\}$. Define $$S_3 = \{2an + z_k\ |\ n\in\mathbb{Z}\},$$
+    and set $A_k = A'_k\cup S_3$ and $C_k = C'_k\backslash S_3 = \mathbb{Z}\backslash (A_k\cup B_k)$. As $S_3 \neq C'_k$, $C_k$ is nonempty. This concludes step $k$.
+
+    Since elements that are equivalent modulo $k$ are separated between $A_k$ and $B_k$, they are aperiodic modulo $k$, so by induction, $A_k$ and $B_k$ are aperiodic modulo all integers $1, 2, \dots k$. Finally, let $$A = \bigcup_{k = 0}^\infty A_k, B = \bigcup_{k = 0}^\infty B_k.$$
+    We see that $A$ and $B$ are disjoint and aperiodic, and we have $A\cap B = \emptyset, A\cup B = \mathbb{Z}$. As $A$ and $B$ are infinite unions of arithmetic sequences, they are both sequential, and as they are complements of each other in the integers, they are also both con-sequential. Hence, not all sets that are both sequential and con-sequential are FUASs.
+	
+\end{document}
